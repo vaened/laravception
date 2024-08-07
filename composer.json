@@ -1,11 +1,22 @@
 {
   "name": "vaened/laravception",
   "description": "Standardize your error responses in Laravel with Laravception. Get consistent error codes, messages, metadata, and translation support.",
+  "keywords": [
+    "error-handling",
+    "exceptions",
+    "laravel-library",
+    "exceptions-handling"
+  ],
   "type": "library",
   "license": "MIT",
   "autoload": {
     "psr-4": {
       "Vaened\\Laravception\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Vaened\\Laravception\\Tests\\": "tests/"
     }
   },
   "authors": [
@@ -22,6 +33,7 @@
   },
   "require-dev": {
     "phpunit/phpunit": "^10.1",
-    "orchestra/testbench": "^8.0"
+    "orchestra/testbench": "^8.0",
+    "mockery/mockery": "^1.6"
   }
 }
