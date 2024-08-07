@@ -1,0 +1,3 @@
+# Laravception 
+
+Laravception is a Laravel library designed to standardize error responses, ensuring that all exceptions follow a consistent format. It provides a structured approach to error handling by including a unique error code, a clear message, and relevant metadata. The library adapts to both production and development environments, automatically adjusting the level of detail provided. Additionally, Laravception supports translation of error messages, promoting the creation of specific exception classes with clean, personalized messages. This approach eliminates the need for frontend error handling, as errors are presented in a clear and understandable manner directly from the backend.
