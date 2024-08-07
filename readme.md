@@ -1,5 +1,8 @@
 # Laravception
 
+[![Build Status](https://github.com/vaened/laravception/actions/workflows/tests.yml/badge.svg)](https://github.com/vaened/laravception/actions?query=workflow:Tests)
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](license)
+
 Laravception standardizes error responses in Laravel, ensuring all exceptions have a unique code, clear message, and metadata. It supports
 error message translation, promotes specific exception classes, and adapts details based on the environment.
 
