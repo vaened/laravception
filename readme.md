@@ -60,8 +60,8 @@ final class InvalidCreditCardException extends RuntimeException implements Trans
 }
 ```
 
-It’s recommended to create a custom exception class for each error to allow more specific translations. For example, with the exception *
-*_“InvalidCreditCardException”_**, you can have a translation entry in the **exceptions** file:**exceptions**:
+It’s recommended to create a custom exception class for each error to allow more specific translations. For example, with the exception
+***“InvalidCreditCardException”***, you can have a translation entry in the **exceptions** file:**exceptions**:
 
 ```php 
 [
@@ -72,8 +72,8 @@ It’s recommended to create a custom exception class for each error to allow mo
 This functionality is enabled by default. Any exceptions that do not implement [Codeable](./src/Exceptions/Codeable.php) will be treated in
 the same manner, converting the class name to snake_case and using this transformation as the error code and key for the translation.
 
-For better error code management, you can implement [Codeable](./src/Exceptions/Codeable.php). In the exception *
-*_“InvalidCreditCardException”_**, you can return a custom error code such as **payments.invalid_credit_card**, and in your translation
+For better error code management, you can implement [Codeable](./src/Exceptions/Codeable.php). In the exception
+***"InvalidCreditCardException"***, you can return a custom error code such as **payments.invalid_credit_card**, and in your translation
 file:
 
 ```php 
