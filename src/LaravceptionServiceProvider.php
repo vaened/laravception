@@ -55,7 +55,7 @@ final class LaravceptionServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__ . '/../config/exceptions.php' => config_path('laravception.php'),
+                __DIR__ . '/../config/laravception.php' => config_path('laravception.php'),
             ], 'laravception-config');
 
             $this->publishes([
