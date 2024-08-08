@@ -20,7 +20,7 @@ composer require vaened/laravception
 Now. Publish the configuration file.
 
 ```bash
-php artisan vendor:publish --provider='Vaened\Laravception\LaravceptionServiceProvider'
+php artisan vendor:publish --tag='laravception'
 ```
 
 ## Usage
