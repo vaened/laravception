@@ -17,6 +17,7 @@ use function config_path;
 use function Lambdish\Phunctional\apply;
 use function lang_path;
 use function resolve;
+use function sprintf;
 
 final class LaravceptionServiceProvider extends ServiceProvider
 {
@@ -54,13 +55,12 @@ final class LaravceptionServiceProvider extends ServiceProvider
     public function boot(): void
     {
         if ($this->app->runningInConsole()) {
-            $this->publishes([
-                __DIR__ . '/../config/laravception.php' => config_path('laravception.php'),
-            ], 'laravception-config');
+            $locale = config('app.locale', 'es');
 
             $this->publishes([
-                __DIR__ . '/../lang/en/exceptions.php' => lang_path('en/exceptions.php'),
-            ], 'laravception-translations');
+                __DIR__ . '/../config/laravception.php' => config_path('laravception.php'),
+                __DIR__ . '/../lang/en/exceptions.php'  => lang_path(sprintf('%s/exceptions.php', $locale)),
+            ], 'laravception');
         }
     }
 }
