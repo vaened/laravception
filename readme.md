@@ -8,7 +8,7 @@ error message translation, promotes specific exception classes, and adapts detai
 
 ![Carbon source code](https://github.com/user-attachments/assets/35a5c171-316b-478b-879c-0324961d38ef)
 
-## Instalation
+## Installation
 
 Laravception requires PHP 8.2.
 To get the latest version, simply require the project using Composer:
