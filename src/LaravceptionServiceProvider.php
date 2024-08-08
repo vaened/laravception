@@ -59,7 +59,7 @@ final class LaravceptionServiceProvider extends ServiceProvider
 
             $this->publishes([
                 __DIR__ . '/../config/laravception.php' => config_path('laravception.php'),
-                __DIR__ . '/../lang/en/exceptions.php'  => lang_path(sprintf('%s/exceptions.php', $locale)),
+                __DIR__ . '/../lang/exceptions.php'     => lang_path(sprintf('%s/exceptions.php', $locale)),
             ], 'laravception');
         }
     }
