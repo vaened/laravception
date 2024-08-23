@@ -8,6 +8,7 @@ declare(strict_types=1);
 namespace Vaened\Laravception\Reporter;
 
 use ReflectionClass;
+use Throwable;
 use Vaened\Laravception\Exceptions\TranslatableException;
 use Vaened\Laravception\ExceptionTranslator;
 
@@ -19,7 +20,7 @@ final readonly class ExceptionTranslatorReporter
     {
     }
 
-    public function __invoke(TranslatableException $exception): never
+    public function __invoke(TranslatableException $exception): Throwable
     {
         $message = $this->translator->translate($exception);
 
@@ -31,6 +32,6 @@ final readonly class ExceptionTranslatorReporter
             unset($reflection);
         }
 
-        throw $exception;
+        return $exception;
     }
 }

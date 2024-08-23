@@ -8,6 +8,7 @@ declare(strict_types=1);
 namespace Vaened\Laravception;
 
 use Illuminate\Foundation\Exceptions\Handler;
+use Throwable;
 use Vaened\Laravception\Exceptions\TranslatableException;
 use Vaened\Laravception\Reporter\ExceptionTranslatorReporter;
 
@@ -23,8 +24,8 @@ final readonly class Configurator
 
     public function __invoke(Handler $handler): void
     {
-        $handler->reportable(static function (TranslatableException $exception): never {
-            apply(
+        $handler->reportable(static function (TranslatableException $exception): Throwable {
+            return apply(
                 resolve(ExceptionTranslatorReporter::class),
                 [$exception]
             );
