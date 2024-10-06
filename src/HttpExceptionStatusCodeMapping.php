@@ -12,8 +12,6 @@ use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
-use function Lambdish\Phunctional\get;
-
 final class HttpExceptionStatusCodeMapping implements ExceptionStatusCodeMapping
 {
     private const DEFAULT_STATUS_CODE = Response::HTTP_INTERNAL_SERVER_ERROR;
@@ -30,6 +28,6 @@ final class HttpExceptionStatusCodeMapping implements ExceptionStatusCodeMapping
 
     public function statusCodeFor(Throwable $throwable): int
     {
-        return get($throwable::class, $this->exceptions, self::DEFAULT_STATUS_CODE);
+        return $this->exceptions[$throwable::class] ?? self::DEFAULT_STATUS_CODE;
     }
 }
