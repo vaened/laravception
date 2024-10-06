@@ -12,17 +12,16 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\UrlGenerator;
 use Throwable;
 use Vaened\Laravception\Decoders\ExceptionNameParser;
-use Vaened\Laravception\ExceptionStatusCodeMapping;
+use Vaened\Laravception\HttpExceptionStatusCodeMapping;
 use Vaened\Laravception\Responses\ErrorResponse;
 use Vaened\Laravception\Responses\ErrorResponseFactory;
 
 abstract class ErrorHandler
 {
     public function __construct(
-        private readonly ExceptionStatusCodeMapping $exceptionHandler,
-        private readonly UrlGenerator               $url,
-        private readonly ExceptionNameParser        $nameParser,
-        private readonly ErrorResponseFactory       $responseFactory,
+        private readonly UrlGenerator         $url,
+        private readonly ExceptionNameParser  $nameParser,
+        private readonly ErrorResponseFactory $responseFactory,
     )
     {
     }
@@ -41,7 +40,7 @@ abstract class ErrorHandler
     {
         return response()->json(
             $this->transformToApplicationResponse($throwable, $metadata)->serialize(),
-            $this->exceptionHandler->statusCodeFor($throwable)
+            HttpExceptionStatusCodeMapping::statusCodeFor($throwable)
         );
     }
 

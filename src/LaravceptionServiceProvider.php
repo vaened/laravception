@@ -29,14 +29,6 @@ final class LaravceptionServiceProvider extends ServiceProvider
         );
 
         $this->app->singleton(
-            ExceptionStatusCodeMapping::class,
-            static function (Application $application) {
-                $config = $application->make(LaravceptionConfig::class);
-                return $application->make($config->codeMapper());
-            }
-        );
-
-        $this->app->singleton(
             ExceptionNameParser::class,
             static function (Application $application) {
                 $config = $application->make(LaravceptionConfig::class);

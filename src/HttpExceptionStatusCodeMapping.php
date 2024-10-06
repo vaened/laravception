@@ -12,22 +12,22 @@ use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
-final class HttpExceptionStatusCodeMapping implements ExceptionStatusCodeMapping
+final class HttpExceptionStatusCodeMapping
 {
     private const DEFAULT_STATUS_CODE = Response::HTTP_INTERNAL_SERVER_ERROR;
 
-    private array $exceptions = [
+    private static array $exceptions = [
         InvalidArgumentException::class => Response::HTTP_BAD_REQUEST,
         ValidationException::class      => Response::HTTP_UNPROCESSABLE_ENTITY,
     ];
 
-    public function register(string $exceptionClass, int $statusCode): void
+    public static function register(string $exceptionClass, int $statusCode): void
     {
-        $this->exceptions[$exceptionClass] = $statusCode;
+        self::$exceptions[$exceptionClass] = $statusCode;
     }
 
-    public function statusCodeFor(Throwable $throwable): int
+    public static function statusCodeFor(Throwable $throwable): int
     {
-        return $this->exceptions[$throwable::class] ?? self::DEFAULT_STATUS_CODE;
+        return self::$exceptions[$throwable::class] ?? self::DEFAULT_STATUS_CODE;
     }
 }

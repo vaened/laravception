@@ -75,16 +75,4 @@ return [
         Vaened\Laravception\Handlers\ValidationExceptionHandler::class,
         Vaened\Laravception\Handlers\ThrowableHandler::class,
     ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | HTTP Exception Status Code Mapping
-    |--------------------------------------------------------------------------
-    |
-    | This option allows you to specify the class responsible for mapping
-    | exceptions to HTTP status codes. The default class provided handles
-    | common exception types, but you can customize it to suit your needs.
-    |
-    */
-    'code_mapper'  => Vaened\Laravception\HttpExceptionStatusCodeMapping::class,
 ];
