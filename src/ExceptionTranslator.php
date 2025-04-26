@@ -14,6 +14,8 @@ use Vaened\Laravception\Exceptions\Codeable;
 use Vaened\Laravception\Exceptions\Parametrizable;
 use Vaened\Laravception\Exceptions\TranslatableException;
 
+use function Lambdish\Phunctional\map;
+
 final readonly class ExceptionTranslator
 {
     public function __construct(
@@ -44,7 +46,13 @@ final readonly class ExceptionTranslator
 
     private function getParametersIfHave(Throwable $throwable): array
     {
-        return $throwable instanceof Parametrizable ? $throwable->parameters() : [];
+        $parameters = $throwable instanceof Parametrizable ? $throwable->parameters() : [];
+
+        return map(fn(mixed $value, string $key) => is_array($value)
+            ? implode(', ', $value)
+            : $value,
+            $parameters
+        );
     }
 
     private function messageSourceOf(Throwable $throwable): string
