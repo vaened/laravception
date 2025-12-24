@@ -37,6 +37,9 @@ Laravception captures exceptions thrown by the application and standardizes thei
   "meta": [
     "Metadata that the exception might export"
   ],
+  "tags": [
+    "Classifications tags for the exception"
+  ],
   "exception": "Exception name",
   "file": "File where exception was thrown",
   "line": "Line that threw the exception",
