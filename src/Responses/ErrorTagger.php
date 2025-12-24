@@ -11,6 +11,7 @@ namespace Vaened\Laravception\Responses;
 use Throwable;
 use Vaened\Laravception\ErrorTag;
 
+use function array_values;
 use function Lambdish\Phunctional\filter;
 use function Lambdish\Phunctional\map;
 
@@ -18,12 +19,12 @@ final readonly class ErrorTagger
 {
     public function classify(Throwable $exception): array
     {
-        return map(
+        return array_values(map(
             static fn(ErrorTag $tag) => $tag->value,
             filter(
                 static fn(ErrorTag $tag) => $tag->isCompatible($exception),
                 ErrorTag::cases()
             )
-        );
+        ));
     }
 }
