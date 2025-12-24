@@ -11,7 +11,6 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\UrlGenerator;
 use Throwable;
-use Vaened\Laravception\Decoders\ExceptionNameParser;
 use Vaened\Laravception\HttpExceptionStatusCodeMapping;
 use Vaened\Laravception\Responses\ErrorResponse;
 use Vaened\Laravception\Responses\ErrorResponseFactory;
@@ -20,7 +19,6 @@ abstract class ErrorHandler
 {
     public function __construct(
         private readonly UrlGenerator         $url,
-        private readonly ExceptionNameParser  $nameParser,
         private readonly ErrorResponseFactory $responseFactory,
     )
     {
@@ -38,15 +36,18 @@ abstract class ErrorHandler
 
     final protected function createJsonResponse(Throwable $throwable, array $metadata = []): JsonResponse
     {
+        $response = $this->transformToApplicationResponse()
+                         ->serialize($throwable, $metadata);
+
         return response()->json(
-            $this->transformToApplicationResponse($throwable, $metadata)->serialize(),
+            $response,
             HttpExceptionStatusCodeMapping::statusCodeFor($throwable)
         );
     }
 
-    final protected function transformToApplicationResponse(Throwable $throwable, array $metadata): ErrorResponse
+    final protected function transformToApplicationResponse(): ErrorResponse
     {
-        return $this->responseFactory->convertToErrorResponse($throwable, $this->nameParser, $metadata);
+        return $this->responseFactory->convertToErrorResponse();
     }
 
     protected function meta(): callable

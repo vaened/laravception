@@ -16,22 +16,19 @@ use function Lambdish\Phunctional\map;
 
 final readonly class DevelopmentJsonResponse implements ErrorResponse
 {
-    private ProductionJsonResponse $response;
-
     public function __construct(
-        private Throwable   $throwable,
-        ExceptionNameParser $nameParser,
-        array               $metadata
+        private ExceptionNameParser $nameParser,
     )
     {
-        $this->response = new ProductionJsonResponse($throwable, $nameParser, $metadata);
     }
 
-    public function serialize(): array
+    public function serialize(Throwable $throwable, array $metadata): array
     {
+        $response = new ProductionJsonResponse($this->nameParser);
+
         return [
-            ...$this->response->serialize(),
-            ...$this->convertExceptionToArray($this->throwable),
+            ...$response->serialize($throwable, $metadata),
+            ...$this->convertExceptionToArray($throwable),
         ];
     }
 

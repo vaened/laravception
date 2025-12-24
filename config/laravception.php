@@ -75,4 +75,18 @@ return [
         Vaened\Laravception\Handlers\ValidationExceptionHandler::class,
         Vaened\Laravception\Handlers\ThrowableHandler::class,
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Exception Responses
+    |--------------------------------------------------------------------------
+    |
+    | Define the response classes for production and development environments.
+    | Custom response classes must implement the ErrorResponse interface
+    | and can be registered in this configuration section.
+    */
+    'responses'    => [
+        'production'  => Vaened\Laravception\Responses\ProductionJsonResponse::class,
+        'development' => Vaened\Laravception\Responses\DevelopmentJsonResponse::class,
+    ]
 ];

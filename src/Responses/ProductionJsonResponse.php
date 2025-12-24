@@ -15,20 +15,18 @@ use Vaened\Laravception\Exceptions\Parametrizable;
 final readonly class ProductionJsonResponse implements ErrorResponse
 {
     public function __construct(
-        private Throwable           $throwable,
         private ExceptionNameParser $nameParser,
-        private array               $metadata
     )
     {
     }
 
-    public function serialize(): array
+    public function serialize(Throwable $throwable, array $metadata): array
     {
         return [
-            'code'    => self::exceptionCodeFor($this->throwable),
-            'message' => $this->throwable->getMessage(),
-            'params'  => self::exceptionParamsFrom($this->throwable),
-            'meta'    => $this->metadata
+            'code'    => self::exceptionCodeFor($throwable),
+            'message' => $throwable->getMessage(),
+            'params'  => self::exceptionParamsFrom($throwable),
+            'meta'    => $metadata
         ];
     }
 
