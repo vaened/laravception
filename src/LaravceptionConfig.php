@@ -31,6 +31,16 @@ final readonly class LaravceptionConfig
         return $this->config['responses']['production'] ?? ProductionJsonResponse::class;
     }
 
+    public function isClassificationEnabled(): bool
+    {
+        return $this->classificationProperty() !== null;
+    }
+
+    public function classificationProperty(): ?string
+    {
+        return $this->config['classification']['property'] ?? null;
+    }
+
     public function decode(): string
     {
         return $this->config['decode'];

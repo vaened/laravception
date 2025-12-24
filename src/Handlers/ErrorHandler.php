@@ -12,13 +12,17 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\UrlGenerator;
 use Throwable;
 use Vaened\Laravception\HttpExceptionStatusCodeMapping;
+use Vaened\Laravception\LaravceptionConfig;
 use Vaened\Laravception\Responses\ErrorResponse;
 use Vaened\Laravception\Responses\ErrorResponseFactory;
+use Vaened\Laravception\Responses\ErrorTagger;
 
 abstract class ErrorHandler
 {
     public function __construct(
         private readonly UrlGenerator         $url,
+        private readonly ErrorTagger          $tagger,
+        private readonly LaravceptionConfig   $config,
         private readonly ErrorResponseFactory $responseFactory,
     )
     {
@@ -38,6 +42,11 @@ abstract class ErrorHandler
     {
         $response = $this->transformToApplicationResponse()
                          ->serialize($throwable, $metadata);
+
+        if ($this->config->isClassificationEnabled()) {
+            $property            = $this->config->classificationProperty();
+            $response[$property] = $this->tagger->classify($throwable);
+        }
 
         return response()->json(
             $response,

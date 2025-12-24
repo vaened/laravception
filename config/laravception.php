@@ -21,7 +21,7 @@ return [
     | implemented, the exception codes will be taken from that implementation.
     |
     */
-    'decode'       => 'snake_case',
+    'decode'         => 'snake_case',
 
     /*
     |--------------------------------------------------------------------------
@@ -34,7 +34,7 @@ return [
     | exception does not implement the Codeable interface.
     |
     */
-    'decoders'     => [
+    'decoders'       => [
         // The 'snake_case' decoder converts exception class names to snake_case format.
         'snake_case' => Vaened\Laravception\Decoders\SnakeCaseExceptionNameParser::class,
     ],
@@ -52,7 +52,7 @@ return [
     | specific translations are applied first.
     |
     */
-    'translations' => [
+    'translations'   => [
         // Translations for exceptions implementing TranslatableException will be
         // found in the 'exceptions' translation file.
         TranslatableException::class => 'exceptions',
@@ -71,9 +71,23 @@ return [
     | catch all exceptions and prevent more specific handlers from being invoked.
     |
     */
-    'handlers'     => [
+    'handlers'       => [
         Vaened\Laravception\Handlers\ValidationExceptionHandler::class,
         Vaened\Laravception\Handlers\ThrowableHandler::class,
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Exception Classification
+    |--------------------------------------------------------------------------
+    |
+    | Define the property name for exception classification in responses.
+    | Classification uses tags from the ErrorTag enum (coded, translated,
+    | parametrized). Set to a string to enable, or null to disable.
+    |
+    */
+    'classification' => [
+        'property' => 'tags'
     ],
 
     /*
@@ -85,7 +99,7 @@ return [
     | Custom response classes must implement the ErrorResponse interface
     | and can be registered in this configuration section.
     */
-    'responses'    => [
+    'responses'      => [
         'production'  => Vaened\Laravception\Responses\ProductionJsonResponse::class,
         'development' => Vaened\Laravception\Responses\DevelopmentJsonResponse::class,
     ]
