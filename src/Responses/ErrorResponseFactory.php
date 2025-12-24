@@ -12,9 +12,9 @@ use Vaened\Laravception\LaravceptionConfig;
 
 use function resolve;
 
-final readonly class ErrorResponseFactory
+class ErrorResponseFactory
 {
-    public function __construct(private LaravceptionConfig $config)
+    public function __construct(private readonly LaravceptionConfig $config)
     {
     }
 
