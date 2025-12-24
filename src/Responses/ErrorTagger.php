@@ -12,11 +12,18 @@ use Throwable;
 use Vaened\Laravception\ErrorTag;
 
 use function Lambdish\Phunctional\filter;
+use function Lambdish\Phunctional\map;
 
 final readonly class ErrorTagger
 {
     public function classify(Throwable $exception): array
     {
-        return filter(static fn(ErrorTag $tag) => $tag->isCompatible($exception), ErrorTag::cases());
+        return map(
+            static fn(ErrorTag $tag) => $tag->value,
+            filter(
+                static fn(ErrorTag $tag) => $tag->isCompatible($exception),
+                ErrorTag::cases()
+            )
+        );
     }
 }
