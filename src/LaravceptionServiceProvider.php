@@ -23,6 +23,8 @@ final class LaravceptionServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
+        $this->mergeConfigFrom(__DIR__ . '/../config/laravception.php', 'laravception');
+
         $this->app->singleton(
             LaravceptionConfig::class,
             static fn() => new LaravceptionConfig(config('laravception'))
