@@ -29,6 +29,21 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
+      - name: Allow Composer advisory-block bypass for compatibility matrix
+        run: |
+          mkdir -p "$HOME/.composer"
+          cat > "$HOME/.composer/config.json" <<'JSON'
+          {
+            "config": {
+              "policy": {
+                "advisories": {
+                  "block": false
+                }
+              }
+            }
+          }
+          JSON
+
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -44,14 +59,14 @@ jobs:
         with:
           timeout_minutes: 5
           max_attempts: 5
-          command: composer require "laravel/framework:${{ matrix.laravel }}.*" "orchestra/testbench:${{ matrix.testbench }}" --dev --no-update --no-interaction --no-audit -W
+          command: composer require "laravel/framework:${{ matrix.laravel }}.*" "orchestra/testbench:${{ matrix.testbench }}" --dev --no-update --no-interaction -W
 
       - name: Install dependencies
         uses: nick-invision/retry@v2
         with:
           timeout_minutes: 5
           max_attempts: 5
-          command: composer update --no-interaction --no-progress --no-audit -W
+          command: composer update --no-interaction --no-progress -W
 
       - name: Run tests for Laravel ${{ matrix.laravel }}
         run: vendor/bin/phpunit
