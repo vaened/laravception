@@ -10,7 +10,13 @@ error message translation, promotes specific exception classes, and adapts detai
 
 ## Installation
 
-Laravception requires PHP 8.2.
+Laravception supports Laravel 11, 12, and 13.
+
+### Version compatibility
+
+- Laravel 11 / 12: PHP 8.2+
+- Laravel 13: PHP 8.3+
+
 To get the latest version, simply require the project using Composer:
 
 ```bash
