@@ -33,3 +33,17 @@ composer composer-install composer-update composer-require composer-require-modu
 .PHONY: test
 test: composer-install
 	docker run --rm -v $(PWD):/app -w /app $(IMAGE) vendor/bin/phpunit $(FILTER_TEST_OPTIONS) --testdox;
+
+.PHONY: ci-local
+# Run the GitHub Actions tests job locally with act.
+# Example: make ci-local
+# Example: make ci-local ACT_ARGS='-l'
+ci-local: check-act
+	@act -W .github/workflows/tests.yml -j tests --container-architecture linux/amd64 $(ACT_ARGS)
+
+.PHONY: check-act
+check-act:
+	@command -v act >/dev/null 2>&1 || { \
+		echo "Error: 'act' is not installed. Install it with: brew install act"; \
+		exit 1; \
+	}
